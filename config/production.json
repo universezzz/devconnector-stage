@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://artsiom123:kmzipass11@cluster0-qxyfe.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "dwqErthyukjtrewqa",
+  "githubClientId": "Iv1.7d5789103e5af656",
+  "githubSecret": "0c27560dc9ba11a67ad45bb2c01480785ae9f005"
+}
