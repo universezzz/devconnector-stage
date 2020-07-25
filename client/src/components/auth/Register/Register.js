@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import axios from 'axios';
+import { register } from '../../../actions/auth';
+import { setAlert } from '../../../actions/alert';
 
-function Register() {
+function Register({ setAlert, register, isAuthenticated }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -21,29 +24,15 @@ function Register() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      console.log('Password do not match');
+      setAlert('Password do not match', 'danger', 3000);
     } else {
-      const newUser = {
-        name,
-        email,
-        password,
-      };
-
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-
-        const body = JSON.stringify(newUser);
-        const res = await axios.post('/api/users', body, config);
-        console.log(res);
-      } catch (err) {
-        console.error(err);
-      }
+      register({ name, email, password });
     }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/' />;
+  }
 
   return (
     <section className='container'>
@@ -57,7 +46,6 @@ function Register() {
             type='text'
             placeholder='Name'
             name='name'
-            required
             value={name}
             onChange={onChange}
           />
@@ -80,7 +68,6 @@ function Register() {
             type='password'
             placeholder='Password'
             name='password'
-            minLength='6'
             value={password}
             onChange={onChange}
           />
@@ -90,7 +77,6 @@ function Register() {
             type='password'
             placeholder='Confirm Password'
             name='confirmPassword'
-            minLength='6'
             value={confirmPassword}
             onChange={onChange}
           />
@@ -104,4 +90,19 @@ function Register() {
   );
 }
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+  setAlert,
+  register,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

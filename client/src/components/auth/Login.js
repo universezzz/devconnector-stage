@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import axios from 'axios';
+import { login } from '../../actions/auth';
 
-function Login() {
+function Login({ login, isAuthenticated }) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -18,22 +20,12 @@ function Login() {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const newUser = { email, password };
-
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-
-      const body = JSON.stringify(newUser);
-      const res = await axios.post('/api/auth', body, config);
-      console.log(res);
-    } catch (err) {
-      console.error(err);
-    }
+    login({ email, password });
   };
+
+  if (isAuthenticated) {
+    return <Redirect to='/'/>;
+  }
 
   return (
     <section className='container'>
@@ -41,13 +33,12 @@ function Login() {
       <p className='lead'>
         <i className='fas fa-user'></i> Sign into Your Account
       </p>
-      <form className='form' onSubmit={onSubmit}>
+      <form className='form' onSubmit={onSubmit} noValidate>
         <div className='form-group'>
           <input
             type='email'
             placeholder='Email Address'
             name='email'
-            required
             value={email}
             onChange={onChange}
           />
@@ -70,4 +61,17 @@ function Login() {
   );
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+  login,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
