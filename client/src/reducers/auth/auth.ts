@@ -1,13 +1,7 @@
-import {
-  REGISTER_SUCCESS,
-  REGISTER_FAILURE,
-  USER_LOADED,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAILURE,
-  LOG_OUT,
-  ACCOUNT_DELETED
-} from '../actions/types';
+import { Reducer } from "redux";
+
+import { authTypes } from '../../actions/types.ts';
+import { AuthState, UserActions } from './auth.interface';
 
 const initialState = {
   token: localStorage.getItem('token'),
@@ -16,19 +10,19 @@ const initialState = {
   user: null,
 };
 
-export default function (state = initialState, action) {
+export default function (state: AuthState = initialState, action: any): AuthState {
   const { type, payload } = action;
 
   switch (type) {
-    case USER_LOADED:
+    case authTypes.USER_LOADED:
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
         user: payload,
       };
-    case REGISTER_SUCCESS:
-    case LOGIN_SUCCESS:
+    case authTypes.REGISTER_SUCCESS:
+    case authTypes.LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
       return {
         ...state,
@@ -36,11 +30,11 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
-    case REGISTER_FAILURE:
-    case LOGIN_FAILURE:
-    case AUTH_ERROR:
-    case LOG_OUT:
-    case ACCOUNT_DELETED:
+    case authTypes.REGISTER_FAILURE:
+    case authTypes.LOGIN_FAILURE:
+    case authTypes.AUTH_ERROR:
+    case authTypes.LOG_OUT:
+    case authTypes.ACCOUNT_DELETED:
       localStorage.removeItem('token');
       return {
         ...state,

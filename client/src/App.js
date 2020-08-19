@@ -5,7 +5,7 @@ import store from './store';
 
 import Landing from './components/layout/Landing';
 import Navbar from './components/layout/Navbar';
-import Login from './components/auth/Login';
+import Login from './components/auth/Login/Login.tsx';
 import Register from './components/auth/Register/Register';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';

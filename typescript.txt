@@ -1,0 +1,13 @@
+1. npm install --save typescript 
+@types/node @types/react @types/react-dom @types/jest
+in client folder
+
+2. and rename files jsx -> tsx
+3. start with Login component
+4. auth reducer
+5. types.ts
+6. reducer index.ts
+7. store.ts
+8.
+9.
+10.

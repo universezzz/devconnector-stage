@@ -1,11 +1,4 @@
-import {
-  GET_PROFILE,
-  PROFILE_ERROR,
-  CLEAR_PROFILE,
-  UPDATE_PROFILE,
-  GET_PROFILES,
-  GET_REPOS,
-} from '../actions/types';
+import { profileTypes } from '../actions/types.ts';
 
 const initialState = {
   profile: null,
@@ -19,34 +12,34 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_PROFILE:
-    case UPDATE_PROFILE:
+    case profileTypes.GET_PROFILE:
+    case profileTypes.UPDATE_PROFILE:
       return {
         ...state,
         profile: payload,
         loading: false,
       };
-    case GET_PROFILES:
+    case profileTypes.GET_PROFILES:
       return {
         ...state,
         profile: null,
         profiles: payload,
         loading: false,
       };
-    case PROFILE_ERROR:
+    case profileTypes.PROFILE_ERROR:
       return {
         ...state,
         error: payload,
         loading: false,
       };
-    case CLEAR_PROFILE:
+    case profileTypes.CLEAR_PROFILE:
       return {
         ...state,
         profile: null,
         repos: [],
         loading: false,
       };
-    case GET_REPOS:
+    case profileTypes.GET_REPOS:
       return {
         ...state,
         repos: payload,
