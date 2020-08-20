@@ -9,7 +9,7 @@ import ProfileExperience from './ProfileExperience';
 import ProfileEducation from './ProfileEducation';
 import ProfileGithub from './ProfileGithub';
 import Spinner from '../common/Spinner';
-import { getProfileById } from '../../actions/profile';
+import { getProfileById } from '../../thunks/profile';
 
 function Profile({
   match,

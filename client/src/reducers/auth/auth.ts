@@ -1,32 +1,29 @@
-import { Reducer } from "redux";
+import { authTypes } from '../../thunks/types';
 
-import { authTypes } from '../../actions/types.ts';
-import { AuthState, UserActions } from './auth.interface';
+import { AuthState, AuthActions } from './auth.interface';
 
-const initialState = {
+const initialState: AuthState = {
   token: localStorage.getItem('token'),
   isAuthenticated: false,
   loading: true,
   user: null,
 };
 
-export default function (state: AuthState = initialState, action: any): AuthState {
-  const { type, payload } = action;
-
-  switch (type) {
+export default function (state: AuthState = initialState, action: AuthActions): AuthState {
+  switch (action.type) {
     case authTypes.USER_LOADED:
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload,
+        user: action.payload,
       };
     case authTypes.REGISTER_SUCCESS:
     case authTypes.LOGIN_SUCCESS:
-      localStorage.setItem('token', payload.token);
+      localStorage.setItem('token', action.payload.token);
       return {
         ...state,
-        ...payload,
+        ...action.payload,
         isAuthenticated: true,
         loading: false,
       };

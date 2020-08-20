@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createProfile } from '../../actions/profile';
+import { createProfile } from '../../thunks/profile';
 
 function CreateProfile({ history, createProfile }) {
   const [formData, setFormData] = useState({

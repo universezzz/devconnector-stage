@@ -1,55 +1,54 @@
-import { postTypes } from '../thunks/types';
+import { postTypes } from '../../thunks/types';
+import { PostActions, Post, PostState, Comment } from './post.interface';
 
 const initialState = {
-  posts: [],
   post: null,
+  posts: [],
   loading: true,
-  error: {},
+  error: null,
 };
 
-export default function (state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
+export default function (state: PostState = initialState, action: PostActions) {
+  switch (action.type) {
     case postTypes.GET_POSTS:
       return {
         ...state,
-        posts: payload,
+        posts: action.payload,
         loading: false,
       };
     case postTypes.GET_POST:
       return {
         ...state,
-        post: payload,
+        post: action.payload,
         loading: false,
       };
     case postTypes.ADD_POST:
       return {
         ...state,
-        posts: [payload, ...state.posts],
+        posts: [action.payload, ...state.posts],
         loading: false,
       };
     case postTypes.DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== payload),
+        posts: state.posts.filter((post: Post) => post._id !== action.payload),
         loading: false,
       };
     case postTypes.POST_ERROR:
       return {
         ...state,
-        error: payload,
+        error: action.payload,
         loading: false,
       };
     case postTypes.UPDATE_LIKES:
       return {
         ...state,
-        posts: state.posts.map((post) =>
-          post._id === payload.postId
+        posts: state.posts.map((post: Post) =>
+          post._id === action.payload.postId
             ? {
-                ...post,
-                likes: payload.likes,
-              }
+              ...post,
+              likes: action.payload.likes,
+            }
             : post
         ),
         loading: false,
@@ -59,7 +58,7 @@ export default function (state = initialState, action) {
         ...state,
         post: {
           ...state.post,
-          comments: payload,
+          comments: action.payload,
         },
         loading: false,
       };
@@ -68,8 +67,8 @@ export default function (state = initialState, action) {
         ...state,
         post: {
           ...state.post,
-          comments: state.post.comments.filter(
-            (comment) => comment._id !== payload
+          comments: state.post?.comments.filter(
+            (comment: Comment) => comment._id !== action.payload
           ),
         },
         loading: false,

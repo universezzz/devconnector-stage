@@ -8,7 +8,7 @@ import Experience from './Experience';
 import Education from './Education';
 import Spinner from '../common/Spinner';
 
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { getCurrentProfile, deleteAccount } from '../../thunks/profile';
 
 function Dashboard({
   auth: { user },

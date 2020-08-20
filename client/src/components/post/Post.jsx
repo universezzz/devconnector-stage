@@ -7,12 +7,12 @@ import PostItem from '../posts/PostItem';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import Spinner from '../common/Spinner';
-import { getPost } from '../../actions/post';
+import { getPost } from '../../thunks/post';
 
 function Post({ match, getPost, post: { post, loading } }) {
   useEffect(() => {
     getPost(match.params.id);
-  }, [getPost]);
+  }, [getPost, match.params.id]);
 
   return loading || post == null ? (
     <Spinner />

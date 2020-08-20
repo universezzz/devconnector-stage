@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Spinner from '../common/Spinner';
-import { getGithubRepos } from '../../actions/profile';
+import { getGithubRepos } from '../../thunks/profile';
 
 function ProfileGithub({ userName, repos, getGithubRepos }) {
   useEffect(() => {

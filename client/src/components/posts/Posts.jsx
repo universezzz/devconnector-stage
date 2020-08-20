@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PostForm from './PostForm';
 import PostItem from './PostItem';
 import Spinner from '../common/Spinner';
-import { getPosts } from '../../actions/post';
+import { getPosts } from '../../thunks/post';
 
 
 function Posts({ getPosts, post: { posts, loading } }) {

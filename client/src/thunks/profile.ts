@@ -1,9 +1,12 @@
 import axios from 'axios';
 
-import { profileTypes, authTypes } from './types.ts';
+import { profileTypes, authTypes, AppThunk } from './types';
 import { setAlert } from './alert';
+import { AppDispatch } from '../store';
+import { ApiError } from '../shared/interfaces';
 
-export const getCurrentProfile = () => async (dispatch) => {
+
+export const getCurrentProfile = (): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.get('/api/profile/me');
 
@@ -22,7 +25,7 @@ export const getCurrentProfile = () => async (dispatch) => {
   }
 };
 
-export const getProfiles = () => async (dispatch) => {
+export const getProfiles = (): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.get('/api/profile');
 
@@ -41,7 +44,7 @@ export const getProfiles = () => async (dispatch) => {
   }
 };
 
-export const getProfileById = (userId) => async (dispatch) => {
+export const getProfileById = (userId: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
 
@@ -60,7 +63,7 @@ export const getProfileById = (userId) => async (dispatch) => {
   }
 };
 
-export const getGithubRepos = (userName) => async (dispatch) => {
+export const getGithubRepos = (userName: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.get(`/api/profile/github/${userName}`);
 
@@ -79,8 +82,8 @@ export const getGithubRepos = (userName) => async (dispatch) => {
   }
 };
 
-export const createProfile = (formData, history, edit = false) => async (
-  dispatch
+export const createProfile = (formData: any, history: any, edit: boolean = false): AppThunk => async (
+  dispatch: AppDispatch
 ) => {
   try {
     const config = {
@@ -105,7 +108,7 @@ export const createProfile = (formData, history, edit = false) => async (
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error: ApiError) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -118,7 +121,7 @@ export const createProfile = (formData, history, edit = false) => async (
   }
 };
 
-export const addExperience = (formData, history) => async (dispatch) => {
+export const addExperience = (formData: any, history: any): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const config = {
       headers: {
@@ -140,7 +143,7 @@ export const addExperience = (formData, history) => async (dispatch) => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error: ApiError) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -153,7 +156,7 @@ export const addExperience = (formData, history) => async (dispatch) => {
   }
 };
 
-export const addEducation = (formData, history) => async (dispatch) => {
+export const addEducation = (formData: any, history: any): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const config = {
       headers: {
@@ -175,7 +178,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error: ApiError) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -188,7 +191,7 @@ export const addEducation = (formData, history) => async (dispatch) => {
   }
 };
 
-export const deleteExperience = (id) => async (dispatch) => {
+export const deleteExperience = (id: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.delete(`api/profile/experience/${id}`);
 
@@ -209,7 +212,7 @@ export const deleteExperience = (id) => async (dispatch) => {
   }
 };
 
-export const deleteEducation = (id) => async (dispatch) => {
+export const deleteEducation = (id: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.delete(`api/profile/education/${id}`);
 
@@ -230,7 +233,7 @@ export const deleteEducation = (id) => async (dispatch) => {
   }
 };
 
-export const deleteAccount = () => async (dispatch) => {
+export const deleteAccount = (): AppThunk => async (dispatch: AppDispatch) => {
   if (window.confirm('Are you sure? This can NOT be undone!')) {
     try {
       await axios.delete('api/profile');

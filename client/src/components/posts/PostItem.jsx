@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { addLike, removeLike, deletePost } from '../../actions/post';
+import { addLike, removeLike, deletePost } from '../../thunks/post';
 
 function PostItem({
   post: { _id, text, name, avatar, user, likes, comments, date },

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import { store } from './store';
 
 import Landing from './components/layout/Landing';
 import Navbar from './components/layout/Navbar';
-import Login from './components/auth/Login/Login.tsx';
+import Login from './components/auth/Login/Login';
 import Register from './components/auth/Register/Register';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
@@ -18,9 +18,9 @@ import Profile from './components/profile/Profile';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
 
-import PrivateRoute from './components/routing/PrivateRoute';
+import PrivateRoute from './components/routing/PrivateRoute/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
-import { loadUser } from './actions/auth';
+import { loadUser } from './thunks/auth';
 
 import './App.css';
 

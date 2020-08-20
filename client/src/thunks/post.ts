@@ -1,9 +1,10 @@
 import axios from 'axios';
 
 import { setAlert } from './alert';
-import { postTypes } from './types.ts';
+import { postTypes, AppThunk } from './types';
+import { AppDispatch } from '../store';
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.get('/api/posts');
 
@@ -22,7 +23,7 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
-export const getPost = (postId) => async (dispatch) => {
+export const getPost = (postId: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.get(`/api/posts/${postId}`);
 
@@ -41,7 +42,7 @@ export const getPost = (postId) => async (dispatch) => {
   }
 };
 
-export const addPost = (formData) => async (dispatch) => {
+export const addPost = (formData: string): AppThunk => async (dispatch: AppDispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -68,7 +69,7 @@ export const addPost = (formData) => async (dispatch) => {
   }
 };
 
-export const deletePost = (postId) => async (dispatch) => {
+export const deletePost = (postId: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     await axios.delete(`/api/posts/${postId}`);
 
@@ -89,7 +90,7 @@ export const deletePost = (postId) => async (dispatch) => {
   }
 };
 
-export const addLike = (postId) => async (dispatch) => {
+export const addLike = (postId: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.patch(`/api/posts/like/${postId}`);
 
@@ -108,7 +109,7 @@ export const addLike = (postId) => async (dispatch) => {
   }
 };
 
-export const removeLike = (postId) => async (dispatch) => {
+export const removeLike = (postId: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     const res = await axios.patch(`/api/posts/unlike/${postId}`);
 
@@ -117,7 +118,6 @@ export const removeLike = (postId) => async (dispatch) => {
       payload: { postId, likes: res.data },
     });
   } catch (err) {
-    console.log(err.response);
     dispatch({
       type: postTypes.POST_ERROR,
       payload: {
@@ -128,7 +128,7 @@ export const removeLike = (postId) => async (dispatch) => {
   }
 };
 
-export const addComment = (postId, formData) => async (dispatch) => {
+export const addComment = (postId: string, formData: any): AppThunk => async (dispatch: AppDispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
   }
 };
 
-export const removeComment = (postId, commentId) => async (dispatch) => {
+export const removeComment = (postId: string, commentId: string): AppThunk => async (dispatch: AppDispatch) => {
   try {
     await axios.patch(`/api/posts/comment/${postId}/${commentId}`);
 

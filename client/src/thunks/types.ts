@@ -1,3 +1,11 @@
+import { ThunkAction } from 'redux-thunk';
+import { RootState } from '../reducers';
+import { Action } from 'redux';
+
+export type AppThunk<ReturnType = void> =
+  ThunkAction<ReturnType, RootState, unknown, Action<string>
+  >;
+
 export enum alertTypes {
   SET_ALERT = 'SET_ALERT',
   REMOVE_ALERT = 'REMOVE_ALERT'

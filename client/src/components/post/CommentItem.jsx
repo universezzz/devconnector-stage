@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 
-import { removeComment } from '../../actions/post';
+import { removeComment } from '../../thunks/post';
 
 function CommentItem({
   postId,

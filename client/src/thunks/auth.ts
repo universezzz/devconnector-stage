@@ -2,9 +2,13 @@ import axios from 'axios';
 
 import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
-import { authTypes, profileTypes } from './types.ts';
+import { authTypes, profileTypes, AppThunk } from './types';
+import { AppDispatch } from '../store';
+import { RegisterData } from '../components/auth/Register/Register/Register.interface';
+import { ApiError } from '../shared/interfaces';
+import { LoginData } from '../components/auth/Login/Login.interface';
 
-export const loadUser = () => async (dispatch) => {
+export const loadUser = (): AppThunk => async (dispatch: AppDispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
@@ -23,7 +27,7 @@ export const loadUser = () => async (dispatch) => {
   }
 };
 
-export const register = ({ name, email, password }) => async (dispatch) => {
+export const register = ({ name, email, password }: RegisterData): AppThunk => async (dispatch: AppDispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -44,7 +48,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error: ApiError) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -53,7 +57,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   }
 };
 
-export const login = ({ email, password }) => async (dispatch) => {
+export const login = ({ email, password }: LoginData): AppThunk => async (dispatch: AppDispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -75,7 +79,7 @@ export const login = ({ email, password }) => async (dispatch) => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach((error: ApiError) => dispatch(setAlert(error.msg, 'danger')));
     }
 
     dispatch({
@@ -84,7 +88,7 @@ export const login = ({ email, password }) => async (dispatch) => {
   }
 };
 
-export const logout = () => (dispatch) => {
+export const logout = (): AppThunk => (dispatch: AppDispatch) => {
   dispatch({ type: authTypes.LOG_OUT });
   dispatch({ type: profileTypes.CLEAR_PROFILE });
 };

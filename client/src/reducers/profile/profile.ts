@@ -1,35 +1,34 @@
-import { profileTypes } from '../actions/types.ts';
+import { profileTypes } from '../../thunks/types';
+import { ProfileState, ProfileActions } from './profile.interface';
 
-const initialState = {
+const initialState: ProfileState = {
   profile: null,
   profiles: [],
   repos: [],
   loading: true,
-  error: {},
+  error: null,
 };
 
-export default function (state = initialState, action) {
-  const { type, payload } = action;
-
-  switch (type) {
+export default function (state: ProfileState = initialState, action: ProfileActions) {
+  switch (action.type) {
     case profileTypes.GET_PROFILE:
     case profileTypes.UPDATE_PROFILE:
       return {
         ...state,
-        profile: payload,
+        profile: action.payload,
         loading: false,
       };
     case profileTypes.GET_PROFILES:
       return {
         ...state,
         profile: null,
-        profiles: payload,
+        profiles: action.payload,
         loading: false,
       };
     case profileTypes.PROFILE_ERROR:
       return {
         ...state,
-        error: payload,
+        error: action.payload,
         loading: false,
       };
     case profileTypes.CLEAR_PROFILE:
@@ -42,7 +41,7 @@ export default function (state = initialState, action) {
     case profileTypes.GET_REPOS:
       return {
         ...state,
-        repos: payload,
+        repos: action.payload,
         loading: false,
       };
     default:

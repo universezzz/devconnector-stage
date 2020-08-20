@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { LoginData } from './Login.interface';
-import { RootState } from '../../../reducers/index.ts';
+import { useDispatch } from 'react-redux';
 
-import { login } from '../../../actions/auth';
+import { AppDispatch } from '../../../store';
+import { useTypedSelector } from '../../../reducers';
+import { login } from '../../../thunks/auth';
+import { LoginData } from './Login.interface';
 
 function Login() {
   const [formData, setFormData] = useState<LoginData>({
@@ -12,8 +13,8 @@ function Login() {
     password: '',
   });
 
-  const isAuthenticated: boolean = useSelector((state: RootState) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
+  const isAuthenticated: boolean = useTypedSelector((state) => state.auth.isAuthenticated);
+  const dispatch: AppDispatch = useDispatch();
 
   const { email, password }: LoginData = formData;
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ProfileItem from './ProfileItem';
 import Spinner from '../common/Spinner';
-import { getProfiles } from '../../actions/profile';
+import { getProfiles } from '../../thunks/profile';
 
 function Profiles({ getProfiles, profile: { loading, profiles } }) {
   useEffect(() => {

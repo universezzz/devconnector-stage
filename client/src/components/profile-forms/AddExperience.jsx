@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { addExperience } from '../../actions/profile';
+import { addExperience } from '../../thunks/profile';
 
 function AddExperience({ addExperience, history }) {
   const [formData, setFormData] = useState({

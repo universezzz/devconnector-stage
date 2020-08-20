@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 
-import { deleteExperience } from '../../actions/profile';
+import { deleteExperience } from '../../thunks/profile';
 
 function Experience({ profileExperiences, deleteExperience }) {
   const experiences = profileExperiences.map((exp) => (
