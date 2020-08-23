@@ -1,0 +1,6 @@
+1. install saga package in client folder
+npm install redux-saga 
+2. import saga into store.js file
+3. add in middleware array
+4. create saga folders and write auth saga
+5. create folder actions-creators / in normal project just "actions"

@@ -3,9 +3,13 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
+import createSagaMiddleware from 'redux-saga';
+
+const sagaMiddleware = createSagaMiddleware();
+
 const initialState = {};
 
-const middleware = [thunk];
+const middleware = [thunk, sagaMiddleware];
 
 const store = createStore(
   rootReducer,
