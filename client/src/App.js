@@ -20,7 +20,11 @@ import Post from './components/post/Post';
 
 import PrivateRoute from './components/routing/PrivateRoute';
 import setAuthToken from './utils/setAuthToken';
-import { loadUser } from './actions/auth';
+// import { loadUser } from './actions/auth';
+
+// saga
+import { loadUserRequest } from './saga-implementation/actions/auth';
+// saga
 
 import './App.css';
 
@@ -30,7 +34,8 @@ if (localStorage.token) {
 
 function App() {
   useEffect(() => {
-    store.dispatch(loadUser());
+    // store.dispatch(loadUser());
+    store.dispatch(loadUserRequest());
   }, []);
 
   return (

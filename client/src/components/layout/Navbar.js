@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { logout } from '../../actions/auth';
+import { logoutRequest } from '../../saga-implementation/actions/auth';
 
-function Navbar({ auth: { isAuthenticated, loading }, logout }) {
+function Navbar() {
+  const dispatch = useDispatch();
+  const { isAuthenticated, loading } = useSelector((state) => state.auth);
+
   const authLinks = (
     <ul>
       <li>
@@ -20,7 +22,7 @@ function Navbar({ auth: { isAuthenticated, loading }, logout }) {
         </Link>
       </li>
       <li>
-        <Link onClick={logout} to='/'>
+        <Link onClick={dispatch(logoutRequest)} to='/'>
           <i className='fas fa-sign-out-alt'></i>
           <span className='hide-sm'>Logout</span>
         </Link>
@@ -51,17 +53,4 @@ function Navbar({ auth: { isAuthenticated, loading }, logout }) {
   );
 }
 
-Navbar.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-const mapDispatchToProps = {
-  logout,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default Navbar;

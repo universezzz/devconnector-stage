@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { login } from '../../actions/auth';
+import { loginRequest } from '../../saga-implementation/actions/auth';
 
-function Login({ login, isAuthenticated }) {
+function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const { email, password } = formData;
 
@@ -20,7 +22,7 @@ function Login({ login, isAuthenticated }) {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    login({ email, password });
+    dispatch(loginRequest({ email, password }));
   };
 
   if (isAuthenticated) {
@@ -61,17 +63,4 @@ function Login({ login, isAuthenticated }) {
   );
 }
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-const mapDispatchToProps = {
-  login,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

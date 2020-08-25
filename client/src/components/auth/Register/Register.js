@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { register } from '../../../actions/auth';
 import { setAlert } from '../../../actions/alert';
+import { registerRequest } from '../../../saga-implementation/actions/auth';
 
-function Register({ setAlert, register, isAuthenticated }) {
+
+function Register() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
+
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const { name, email, password, confirmPassword } = formData;
 
@@ -24,9 +27,9 @@ function Register({ setAlert, register, isAuthenticated }) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setAlert('Password do not match', 'danger', 3000);
+      dispatch(setAlert('Password do not match', 'danger', 3000));
     } else {
-      register({ name, email, password });
+      dispatch(registerRequest({ name, email, password }));
     }
   };
 
@@ -90,19 +93,4 @@ function Register({ setAlert, register, isAuthenticated }) {
   );
 }
 
-Register.propTypes = {
-  setAlert: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-const mapDispatchToProps = {
-  setAlert,
-  register,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default Register;

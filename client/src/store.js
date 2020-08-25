@@ -5,6 +5,8 @@ import rootReducer from './reducers';
 
 import createSagaMiddleware from 'redux-saga';
 
+import rootSaga from './saga-implementation/sagas';
+
 const sagaMiddleware = createSagaMiddleware();
 
 const initialState = {};
@@ -16,5 +18,7 @@ const store = createStore(
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
+
+sagaMiddleware.run(rootSaga);
 
 export default store;
