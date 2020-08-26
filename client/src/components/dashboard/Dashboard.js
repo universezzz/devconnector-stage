@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 import DashBoardActions from './DashBoardActions';
 import Experience from './Experience';
@@ -9,6 +9,7 @@ import Education from './Education';
 import Spinner from '../common/Spinner';
 
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { getProfileRequest } from '../../saga-implementation/actions/profile';
 
 function Dashboard({
   auth: { user },
@@ -16,8 +17,13 @@ function Dashboard({
   getCurrentProfile,
   deleteAccount,
 }) {
+  const dispatch = useDispatch(getProfileRequest);
+
   useEffect(() => {
     getCurrentProfile();
+    // saga 
+    dispatch(getProfileRequest());
+    // saga
   }, [getCurrentProfile]);
 
   return loading && profile === null ? (

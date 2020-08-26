@@ -14,6 +14,7 @@ const loginRequest = createAction(auth.LOGIN_REQUEST);
 const loginSuccess = createAction(auth.LOGIN_SUCCESS);
 const loginFailure = createAction(auth.LOGIN_FAILURE);
 
+const logoutRequest = createAction(auth.LOG_OUT_REQUEST);
 const logoutSuccess = createAction(auth.LOG_OUT_SUCCESS);
 
 export {
@@ -26,8 +27,6 @@ export {
   loginRequest,
   loginSuccess,
   loginFailure,
+  logoutRequest,
   logoutSuccess
 };
-
-// USER_LOADED
-// AUTH_ERROR,

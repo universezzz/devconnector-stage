@@ -22,7 +22,7 @@ function Navbar() {
         </Link>
       </li>
       <li>
-        <Link onClick={dispatch(logoutRequest)} to='/'>
+        <Link onClick={() => dispatch(logoutRequest())} to='/'>
           <i className='fas fa-sign-out-alt'></i>
           <span className='hide-sm'>Logout</span>
         </Link>

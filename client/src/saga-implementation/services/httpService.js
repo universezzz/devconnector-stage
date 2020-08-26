@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// import setAuthToken from '../../utils/setAuthToken';
+
 class HttpService {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
@@ -7,6 +9,9 @@ class HttpService {
       responseType: 'json',
     };
     this.service = axios.create({ ...this.baseConfig });
+    if (localStorage.token) {
+      this.service.defaults.headers.common['auth-token'] = localStorage.token;
+    }
   }
 
   get = async ({ url, id, params = {}, config = {} }) => {

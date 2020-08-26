@@ -1,7 +1,8 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 
 import { auth } from '../actions/types';
-import * as actions from '../actions/auth';
+import * as authActions from '../actions/auth';
+import * as alertActions from '../actions/alert';
 
 import {
   loadUserRequest,
@@ -13,9 +14,9 @@ function* loadUser() {
   try {
     const response = yield call(loadUserRequest);
 
-    yield put(actions.loadUserSuccess(response));
+    yield put(authActions.loadUserSuccess(response));
   } catch (err) {
-    yield put(actions.loadUserFailure(err));
+    yield put(authActions.loadUserFailure(err));
   }
 }
 
@@ -23,9 +24,16 @@ function* register({ payload }) {
   try {
     const response = yield call(registerRequest, payload);
 
-    yield put(actions.registerSuccess(response));
+    yield put(authActions.registerSuccess(response));
+    yield put(authActions.loadUserRequest());
   } catch (err) {
-    yield put(actions.registerFailure(err));
+    yield put(authActions.registerFailure(err));
+
+    for (const error of err.errors) {
+      yield put(
+        alertActions.setAlertRequest({ msg: error.msg, alertType: 'danger' })
+      );
+    }
   }
 }
 
@@ -33,14 +41,23 @@ function* login({ payload }) {
   try {
     const response = yield call(loginRequest, payload);
 
-    yield put(actions.loginSuccess(response));
+    yield put(authActions.loginSuccess(response));
+
+    yield put(authActions.loadUserRequest());
   } catch (err) {
-    yield put(actions.loginFailure(err));
+    for (const error of err.errors) {
+      yield put(
+        alertActions.setAlertRequest({ msg: error.msg, alertType: 'danger' })
+      );
+    }
+
+    yield put(authActions.loginFailure(err));
   }
 }
 
 function* logout() {
-  yield put(actions.logoutSuccess());
+  localStorage.removeItem('token');
+  yield put(authActions.logoutSuccess());
   // profile
 }
 

@@ -1,6 +1,5 @@
 import { httpService } from './httpService';
 
-import setAuthToken from '../../utils/setAuthToken';
 import { links } from '../utils/constants';
 
 const config = {
@@ -12,7 +11,8 @@ const config = {
 export const loadUserRequest = async () => {
   try {
     if (localStorage.token) {
-      setAuthToken(localStorage.token);
+      httpService.service.defaults.headers.common['auth-token'] =
+        localStorage.token;
     }
 
     const { data } = await httpService.get({ url: links.loadUserRoute });
@@ -25,11 +25,13 @@ export const loadUserRequest = async () => {
 
 export const registerRequest = async (formData) => {
   try {
-    const { data: { token } } = await httpService.post({
+    const {
+      data: { token },
+    } = await httpService.post({
       url: links.registrationRoute,
       data: formData,
       config,
-    }); 
+    });
 
     localStorage.setItem('token', token);
 
@@ -41,11 +43,13 @@ export const registerRequest = async (formData) => {
 
 export const loginRequest = async (formData) => {
   try {
-    const { data: { token } } = await httpService.post({
+    const {
+      data: { token },
+    } = await httpService.post({
       url: links.loginRoute,
       data: formData,
       config,
-    }); 
+    });
 
     localStorage.setItem('token', token);
 

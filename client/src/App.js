@@ -28,9 +28,9 @@ import { loadUserRequest } from './saga-implementation/actions/auth';
 
 import './App.css';
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
+// if (localStorage.token) {
+//   setAuthToken(localStorage.token);
+// }
 
 function App() {
   useEffect(() => {
