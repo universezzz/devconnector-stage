@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDb = require('./config/db');
+const { connectDb } = require('./config/db');
 const path = require('path');
 
 const app = express();
@@ -21,8 +21,4 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log('Server is running');
-});
+module.exports = app;

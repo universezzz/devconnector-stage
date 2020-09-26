@@ -1,0 +1,18 @@
+1. setup jest, supertest npm install supertest jest --save-dev
+2. add rule in package json for test 
+3. setup test database
+4. install cross-env package
+5. update config db.js with two new functions
+6. install mongodb-memory-server
+7. jest --init
+8.
+
+
+/* 
+How does Jest recognize a test file?
+Jest recognizes test file in three ways:
+
+files that have extension .test.js
+files that have extension .spec.js
+All files inside __tests__ folder or directory.
+*/
