@@ -24,7 +24,7 @@ function Register({ setAlert, register, isAuthenticated }) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      setAlert('Password do not match', 'danger', 3000);
+      setAlert('Passwords do not match', 'danger', 3000);
     } else {
       register({ name, email, password });
     }
@@ -35,12 +35,12 @@ function Register({ setAlert, register, isAuthenticated }) {
   }
 
   return (
-    <section className='container'>
+    <section className='container' noValidate>
       <h1 className='large text-primary'>Sign Up</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
       </p>
-      <form className='form' onSubmit={onSubmit}>
+      <form className='form' onSubmit={onSubmit} noValidate>
         <div className='form-group'>
           <input
             type='text'

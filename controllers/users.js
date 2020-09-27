@@ -47,6 +47,8 @@ async function register(req, res, next) {
 
     const token = await generateToken(payload);
 
+    jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 36000 })
+
     res.json(token);
   } catch (err) {
     console.log(err.message);

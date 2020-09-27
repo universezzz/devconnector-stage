@@ -72,7 +72,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "cypress": "cross-env BABEL_ENV=development cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -142,5 +143,9 @@
     "presets": [
       "react-app"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "cypress": "^5.2.0"
   }
 }

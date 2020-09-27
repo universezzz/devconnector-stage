@@ -1,0 +1,16 @@
+{
+  "errors": [
+    {
+      "value": "@gmail.com",
+      "msg": "Please include a valid email",
+      "param": "email",
+      "location": "body"
+    },
+    {
+      "value": "",
+      "msg": "Please enter a password with 6 or more characters",
+      "param": "password",
+      "location": "body"
+    }
+  ]
+}
